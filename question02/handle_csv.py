@@ -54,11 +54,11 @@ with open(file_path, "r", encoding="utf-8") as file:
     binary_inventory.append(row)
 
 # 이진 파일로 저장
-with open("files/Mars_Base_Inventory_List", "wb") as bin_file:
+with open("files/Mars_Base_Inventory_List.bin", "wb") as bin_file:
   pickle.dump(binary_inventory, bin_file)
 
 # 이진 파일로부터 데이터 읽기
-with open("files/Mars_Base_Inventory_List", "rb") as bin_file:
+with open("files/Mars_Base_Inventory_List.bin", "rb") as bin_file:
   binary_list = pickle.load(bin_file)
 
 # 이진 파일로부터 읽은 데이터 출력

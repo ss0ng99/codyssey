@@ -42,7 +42,7 @@ logs_dictionary = read_file_dictionary(file_path)
 
 # 로그파일 마크다운 형식으로 변환
 def generate_markdown_report(logs_dictionary):
-  md_content = "# Log Report\n\n"
+  md_content = "# Log Report \n\n"
   md_content += "| Timestamp | Event | Message |\n"
   
   for item in logs_dictionary[1:]:

@@ -1,4 +1,4 @@
-# Log Report
+# Log Report 
 
 | Timestamp | Event | Message |
 | 2023-08-27 10:00:00 | INFO | Rocket initialization process started. |
