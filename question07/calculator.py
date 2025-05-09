@@ -12,7 +12,6 @@ class Calculator:
   def reset(self):
     self.current = ''
     self.operator = ''
-    self.operand = ''
     self.result = None
 
   def input_number(self, num):
@@ -51,33 +50,28 @@ class Calculator:
 
   def equal(self):
     self._compute_pending(final=True)
-    return self.format_result(self.result)
+    result = self.format_result(self.result)
+    self.current = result
+    self.result = None
+    self.operator = ''
+    return result
 
   def _compute_pending(self, final=False):
     try:
-      if self.operator and self.current:
+      if self.current:
         if self.result is None:
-          self.result = float(self.operand)
-        a = self.result
-        b = float(self.current)
-
-        if self.operator == '+':
-          self.result = a + b
-        elif self.operator == '-':
-          self.result = a - b
-        elif self.operator == '*':
-          self.result = a * b
-        elif self.operator == '/':
-          self.result = a / b if b != 0 else float('inf')
-
-        self.operand = str(self.result)
-        self.current = '' if not final else str(self.result)
-        self.operator = '' if final else self.operator
-      elif not self.operator and self.current:
-        self.result = float(self.current)
-        self.operand = self.current
-        if final:
-          self.current = str(self.result)
+          self.result = float(self.current)
+        else:
+          b = float(self.current)
+          if self.operator == '+':
+            self.result += b
+          elif self.operator == '-':
+            self.result -= b
+          elif self.operator == '*':
+            self.result *= b
+          elif self.operator == '/':
+            self.result = self.result / b if b != 0 else float('inf')
+      self.current = ''
     except Exception:
       self.result = None
       self.current = 'Error'
@@ -198,16 +192,16 @@ class CalculatorUI(QWidget):
       self.update_display(self.calc.current)
     elif text == '+':
       self.calc.add()
-      self.update_display(self.calc.operand)
+      self.update_display(self.calc.format_result(self.calc.result))
     elif text == '-':
       self.calc.subtract()
-      self.update_display(self.calc.operand)
+      self.update_display(self.calc.format_result(self.calc.result))
     elif text == '*':
       self.calc.multiply()
-      self.update_display(self.calc.operand)
+      self.update_display(self.calc.format_result(self.calc.result))
     elif text == '/':
       self.calc.divide()
-      self.update_display(self.calc.operand)
+      self.update_display(self.calc.format_result(self.calc.result))
     elif text == 'AC':
       self.calc.reset()
       self.update_display('')
