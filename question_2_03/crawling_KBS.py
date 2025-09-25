@@ -30,7 +30,6 @@ HEADERS = {
     'Accept-Language': 'ko,en;q=0.8',
 }
 
-
 def fetch_html(url: str) -> str:
     """URL에서 HTML을 가져온다."""
     try:
@@ -67,7 +66,7 @@ def extract_headlines(html: str, limit: int = 20) -> List[str]:
     # - 기사 카드/리스트의 타이틀 앵커
     # - 기사 상세로 가는 공통 패턴(href에 /news/view.do 포함)
     selectors = [
-        'a[href*="/view.do"]',
+        '.main-head-line a[href*="/view.do"]',
     ]
 
     titles: List[str] = []
